@@ -1,0 +1,36 @@
+package com.cognizant.LoadCountry;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+@SpringBootApplication
+public class LoadCountryApplication {
+
+	private static final Logger LOGGER =
+			LoggerFactory.getLogger(LoadCountryApplication.class);
+
+	public static void main(String[] args) {
+
+		SpringApplication.run(LoadCountryApplication.class, args);
+
+		displayCountry();
+	}
+
+	public static void displayCountry() {
+
+		ClassPathXmlApplicationContext context =
+				new ClassPathXmlApplicationContext("country.xml");
+
+		Country country = context.getBean("country", Country.class);
+
+		LOGGER.debug("Country Code : {}", country.getCode());
+		LOGGER.debug("Country Name : {}", country.getName());
+
+		LOGGER.debug("Country : {}", country);
+
+		context.close();
+	}
+}
